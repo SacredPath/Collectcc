@@ -3,121 +3,133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WorkZone | Remote Jobs</title>
+  <title>WorkZone - Flexible Remote Jobs That Pay Fast</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='0.9em' font-size='90'>💼</text></svg>" />
   <style>
+    /* Reset */
     * {
       box-sizing: border-box; margin: 0; padding: 0;
     }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #007bff 0%, #00bfff 100%);
-      color: white;
+      background: #f5f8fb;
+      color: #212a3e;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       padding: 2rem 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 480px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.1);
+    }
+    header {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+    header .logo {
+      display: inline-block;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+      font-size: 3.4rem;
+      filter: drop-shadow(0 0 3px #0d6efd66);
     }
     h1 {
-      font-size: 3rem;
-      font-weight: 900;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #0d6efd;
+      margin-bottom: 0.8rem;
+    }
+    p.lead {
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: #555f7a;
+      margin-bottom: 2rem;
+    }
+    ul.features {
+      list-style: none;
+      margin-bottom: 2.4rem;
+      text-align: left;
+      padding-left: 1rem;
+      color: #35435d;
+    }
+    ul.features li {
       margin-bottom: 1rem;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      font-weight: 600;
+      position: relative;
+      padding-left: 28px;
     }
-    p {
-      font-size: 1.3rem;
-      margin-bottom: 2rem;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.25);
-    }
-    .hero-icons {
-      font-size: 3.5rem;
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
+    ul.features li::before {
+      content: "✅";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1.2rem;
+      line-height: 1;
+      color: #0d6efd;
     }
     .btn-primary {
-      background: white;
-      color: #007bff;
+      background-color: #0d6efd;
+      color: white;
       font-weight: 700;
       font-size: 1.3rem;
-      padding: 1rem 3rem;
-      border-radius: 50px;
-      border: none;
+      padding: 16px 0;
+      border-radius: 60px;
+      width: 100%;
       cursor: pointer;
-      box-shadow: 0 6px 15px rgba(255,255,255,0.6);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
+      border: none;
+      box-shadow: 0 8px 24px rgba(13,110,253,0.4);
+      transition: background-color 0.3s ease;
+      user-select: none;
     }
     .btn-primary:hover {
-      background: #0056b3;
-      color: white;
+      background-color: #0848c3;
+      box-shadow: 0 10px 30px rgba(8,72,195,0.5);
     }
-    .benefits {
-      background: white;
-      color: #007bff;
-      padding: 2.5rem 1rem 3rem;
-      border-radius: 16px 16px 0 0;
-      margin-top: 3rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-      gap: 2rem;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 -8px 24px rgba(0,0,0,0.12);
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      user-select: none;
     }
-    .benefit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-weight: 600;
-      font-size: 1.05rem;
-      text-align: center;
-      gap: 0.8rem;
-    }
-    .benefit-icon {
-      font-size: 2.5rem;
-      color: #0056b3;
-    }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
+    @media (max-width: 500px) {
+      .container {
+        padding: 2rem 1.2rem;
       }
-      .benefits {
-        grid-template-columns: 1fr 1fr;
-      }
-      .benefit {
-        font-size: 0.95rem;
-      }
-      .btn-primary {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
+      header {
+        font-size: 2.6rem;
       }
     }
   </style>
 </head>
 <body>
-  <h1>💼 WorkZone</h1>
-  <p>Your gateway to flexible remote jobs — Start earning from home today!</p>
-  <div class="hero-icons" aria-hidden="true">🚀💻📈🕒🏠</div>
-  <a href="form.html" class="btn-primary" role="button">Join Now</a>
-
-  <section class="benefits" aria-label="Benefits of WorkZone">
-    <div class="benefit"><div class="benefit-icon">💰</div>Earn up to $35/hr</div>
-    <div class="benefit"><div class="benefit-icon">🏠</div>Work from home</div>
-    <div class="benefit"><div class="benefit-icon">⚡</div>Fast onboarding</div>
-    <div class="benefit"><div class="benefit-icon">🧑‍💼</div>No experience needed</div>
-    <div class="benefit"><div class="benefit-icon">🕒</div>Flexible hours</div>
-    <div class="benefit"><div class="benefit-icon">📬</div>Email-based onboarding</div>
-  </section>
+  <main class="container" role="main" aria-labelledby="main-title">
+    <header>
+      <span class="logo" aria-hidden="true">💼</span>
+      WorkZone
+    </header>
+    <h1 id="main-title">Flexible Remote Jobs That Pay Fast</h1>
+    <p class="lead">Join thousands working from home earning daily payouts — no experience needed.</p>
+    <ul class="features" aria-label="Job benefits">
+      <li>💰 Weekly payouts directly to your bank or card</li>
+      <li>📈 Opportunities in Retail, Tech, Healthcare & more</li>
+      <li>📧 Quick onboarding — we select and email candidates</li>
+      <li>⏳ Work at your own pace, anywhere, anytime</li>
+      <li>🔒 Secure and confidential application process</li>
+    </ul>
+    <button class="btn-primary" onclick="location.href='form.html'" aria-label="Join Now - go to application form">Join Now</button>
+  </main>
+  <footer>
+    &copy; 2025 WorkZone | Contact us: contact@workzone.example
+  </footer>
 </body>
 </html>
